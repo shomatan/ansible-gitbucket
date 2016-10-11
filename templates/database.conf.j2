@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+db {
+  url = "jdbc:mysql://{{ gitbucket_db_host }}/{{ gitbucket_db_name }}?useUnicode=true&characterEncoding=utf8"
+  user = "{{ gitbucket_db_user }}"
+  password = "{{ gitbucket_db_password }}"
+  #  connectionTimeout = 30000
+  #  idleTimeout = 600000
+  #  maxLifetime = 1800000
+  #  minimumIdle = 10
+  #  maximumPoolSize = 10
+}
