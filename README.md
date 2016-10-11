@@ -11,6 +11,7 @@
 server {
 
     listen 80;
+    server_name localhost;
 
     access_log /var/log/nginx/gitbucket-access.log;
     error_log  /var/log/nginx/gitbucket-error.log error;
