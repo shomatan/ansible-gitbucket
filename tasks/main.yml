@@ -35,3 +35,15 @@
 
 - name: Create backup directory.
   file: path=/home/backup/gitbucket state=directory owner=backup group=backup
+
+- name: Copy gitbucket backup script in place.
+  template: src=backup-gitbucket.sh.j2 dest=/usr/local/bin/backup-gitbucket mode=00750
+
+- name: Creates dairy gitbucket backup cronjob.
+  cron:
+    name: "Backup gitbucket data (dairy schedule)"
+    user: root
+    minute: "10"
+    hour: "5"
+    job: "sh /usr/local/bin/backup-gitbucket"
+    cron_file: gitbucket-backup

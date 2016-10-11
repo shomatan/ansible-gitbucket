@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# {{ ansible_managed }}
+###############################################################################
+
+BACKUP_FOLDER="/home/backup/gitbucket"
+
+cd /home/tomcat
+tar zcf $BACKUP_FOLDER/gitbucket-`date +%Y-%m-%d`.tar.gz .gitbucket
+
+# remove old backup
+DELETE_DAY=`/bin/date -d '3 day ago' +%Y-%m-%d`
+rm -f "$BACKUP_FOLDER/gitbucket-$DELETE_DAY.tar.gz"
