@@ -1,24 +1,24 @@
 ---
 # database
-- name: Create gitbucket database
-  mysql_db: name={{ gitbucket_db_name }} state=present
-
-- name: Create gitbucket user and 'WITH GRANT OPTION'
-  mysql_user:
-    name: "{{ gitbucket_db_user }}"
-    password: "{{ gitbucket_db_password }}"
-    priv: "{{ gitbucket_db_name }}.*:ALL,GRANT"
-    host: "{{ gitbucket_db_host }}"
-    state: present
+# - name: Create gitbucket database
+#   mysql_db: name={{ gitbucket_db_name }} state=present
+#
+# - name: Create gitbucket user and 'WITH GRANT OPTION'
+#   mysql_user:
+#     name: "{{ gitbucket_db_user }}"
+#     password: "{{ gitbucket_db_password }}"
+#     priv: "{{ gitbucket_db_name }}.*:ALL,GRANT"
+#     host: "{{ gitbucket_db_host }}"
+#     state: present
 
 # configure
 - name: Create gitbucket home directory
   file: path=/home/tomcat/.gitbucket state=directory owner=tomcat group=tomcat
 
-- name: Copy database conf file in place.
-  template: src=database.conf.j2 dest=/home/tomcat/.gitbucket/database.conf owner=tomcat group=tomcat
-  notify:
-    - restart tomcat
+# - name: Copy database conf file in place.
+#   template: src=database.conf.j2 dest=/home/tomcat/.gitbucket/database.conf owner=tomcat group=tomcat
+#   notify:
+#     - restart tomcat
 
 # install
 - name: Download gitbucket.war
