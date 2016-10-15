@@ -1,8 +1,36 @@
 # Ansible role: gitbucket
+Deploy Gitbucket.
 
+## Requirements
+None.
+
+## Role Variables
+|Key|Type|Description|Default|
+|:--|:---|:----------|:------|
+|gitbucket_version|String||4.5|
+|gitbucket_war_download_url|String||See `defaults/main.yml`|
+|gitbucket_war_file_path|String||See `defaults/main.yml`|
+|gitbucket_db_host|String||localhost|
+|gitbucket_db_name|String||gitbucket|
+|gitbucket_db_user|String||gitbucket|
+|gitbucket_db_password|String||password|
+
+## Dependencies
+- [java](https://github.com/shomatan/ansible-java.git)
+- [tomcat](https://github.com/shomatan/ansible-tomcat.git)
 
 ## Example playbook
 
+```yaml
+- hosts: all
+  roles:
+    - { role: gitbucket }
+  vars:
+    gitbucket_version: 4.1
+    gitbucket_db_name: gitbucket_db
+    gitbucket_db_user: user
+    gitbucket_db_password: password
+```
 
 ### nginx.conf
 
