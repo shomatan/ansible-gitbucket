@@ -53,9 +53,10 @@ server {
     location / {
         proxy_pass              http://127.0.0.1:8080/gitbucket/;
         proxy_connect_timeout   150;
-        proxy_send_timeout      300;
-        proxy_read_timeout      300;
+        proxy_send_timeout      100;
+        proxy_read_timeout      100;
         proxy_buffers           4 32k;
+        proxy_cookie_path       /gitbucket/ /;
         client_max_body_size    500m; # Big number is we can post big commits.
         client_body_buffer_size 128k;
     }
