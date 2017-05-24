@@ -1,0 +1,7 @@
+---
+- name: Install dumb init.
+  apk:
+    name: dumb-init
+
+- name: Purge apk cache.
+  command: rm -rf /var/cache/apk/* 

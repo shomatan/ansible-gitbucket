@@ -1,49 +1,9 @@
 ---
-# database
-# - name: Create gitbucket database
-#   mysql_db: name={{ gitbucket_db_name }} state=present
-#
-# - name: Create gitbucket user and 'WITH GRANT OPTION'
-#   mysql_user:
-#     name: "{{ gitbucket_db_user }}"
-#     password: "{{ gitbucket_db_password }}"
-#     priv: "{{ gitbucket_db_name }}.*:ALL,GRANT"
-#     host: "{{ gitbucket_db_host }}"
-#     state: present
+- include: docker-{{ ansible_os_family }}.yml
+  static: no
+  when: ansible_connection == 'docker'
 
-# configure
-- name: Create gitbucket home directory
-  file: path=/home/tomcat/.gitbucket state=directory owner=tomcat group=tomcat
-
-# - name: Copy database conf file in place.
-#   template: src=database.conf.j2 dest=/home/tomcat/.gitbucket/database.conf owner=tomcat group=tomcat
-#   notify:
-#     - restart tomcat
-
-# install
 - name: Download gitbucket.war
-  get_url: url={{ gitbucket_war_download_url }} dest={{ gitbucket_war_file_path }} owner=tomcat group=tomcat
-  notify:
-    - restart tomcat
-
-# backup
-- name: Create backup group.
-  group: name=backup
-
-- name: Create backup user.
-  user: name=backup group=backup shell=/sbin/nologin
-
-- name: Create backup directory.
-  file: path=/home/backup/gitbucket state=directory owner=backup group=backup
-
-- name: Copy gitbucket backup script in place.
-  template: src=backup-gitbucket.sh.j2 dest=/usr/local/bin/backup-gitbucket mode=00750
-
-- name: Creates dairy gitbucket backup cronjob.
-  cron:
-    name: "Backup gitbucket data (dairy schedule)"
-    user: root
-    minute: "10"
-    hour: "5"
-    job: "sh /usr/local/bin/backup-gitbucket"
-    cron_file: gitbucket-backup
+  get_url:
+    url: https://github.com/gitbucket/gitbucket/releases/download/{{ gitbucket_version }}/gitbucket.war
+    dest: /opt/gitbucket.war

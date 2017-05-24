@@ -1,9 +1,2 @@
 ---
-gitbucket_version: 4.9
-gitbucket_war_download_url: "https://github.com/gitbucket/gitbucket/releases/download/{{ gitbucket_version }}/gitbucket.war"
-gitbucket_war_file_path: "{{ tomcat_home }}/webapps/gitbucket.war"
-
-gitbucket_db_host: localhost
-gitbucket_db_name: gitbucket
-gitbucket_db_user: gitbucket
-gitbucket_db_password: password
+gitbucket_version: 4.12.1
