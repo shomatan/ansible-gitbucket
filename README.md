@@ -1,69 +1,38 @@
-# Ansible role: gitbucket
-Deploy Gitbucket.
+Role Name
+=========
 
-## Requirements
-None.
+A brief description of the role goes here.
 
-## Role Variables
-|Key|Type|Description|Default|
-|:--|:---|:----------|:------|
-|gitbucket_version|String||4.5|
-|gitbucket_war_download_url|String||See `defaults/main.yml`|
-|gitbucket_war_file_path|String||See `defaults/main.yml`|
-|gitbucket_db_host|String||localhost|
-|gitbucket_db_name|String||gitbucket|
-|gitbucket_db_user|String||gitbucket|
-|gitbucket_db_password|String||password|
+Requirements
+------------
 
-## Dependencies
-- [java](https://github.com/shomatan/ansible-java.git)
-- [tomcat](https://github.com/shomatan/ansible-tomcat.git)
+Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
-## Example playbook
+Role Variables
+--------------
 
-```yaml
-- hosts: all
-  roles:
-    - { role: gitbucket }
-  vars:
-    gitbucket_version: 4.1
-    gitbucket_db_name: gitbucket_db
-    gitbucket_db_user: user
-    gitbucket_db_password: password
-```
+A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-### nginx.conf
+Dependencies
+------------
 
-```nginx
+A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-server {
+Example Playbook
+----------------
 
-    listen 80;
-    server_name localhost;
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    access_log /var/log/nginx/gitbucket-access.log;
-    error_log  /var/log/nginx/gitbucket-error.log error;
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
 
-    proxy_set_header Host               $host;
-    proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Host   $host;
-    proxy_set_header X-Forwarded-Server $host;
-    proxy_set_header X-Real-IP          $remote_addr;
+License
+-------
 
-    location / {
-        proxy_pass              http://127.0.0.1:8080/gitbucket/;
-        proxy_connect_timeout   150;
-        proxy_send_timeout      100;
-        proxy_read_timeout      100;
-        proxy_buffers           4 32k;
-        proxy_cookie_path       /gitbucket/ /;
-        client_max_body_size    500m; # Big number is we can post big commits.
-        client_body_buffer_size 128k;
-    }
+BSD
 
-    location /assets/ {
-        proxy_pass http://127.0.0.1:8080/gitbucket/assets/;
-    }
-}
+Author Information
+------------------
 
-```
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).
