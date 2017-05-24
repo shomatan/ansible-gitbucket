@@ -3,6 +3,11 @@
   static: no
   when: ansible_connection == 'docker'
 
+- name: Create destination directory.
+  file:
+    path: /opt
+    state: directory
+    
 - name: Download gitbucket.war
   get_url:
     url: https://github.com/gitbucket/gitbucket/releases/download/{{ gitbucket_version }}/gitbucket.war
